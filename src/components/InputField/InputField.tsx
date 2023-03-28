@@ -1,4 +1,3 @@
-import { InputProps } from "@mui/material";
 import styles from "./InputField.module.css";
 
 const InputField = ({

@@ -1,10 +1,35 @@
 import { Box, Grid, Typography } from "@mui/material";
 
 import ButtonOutlined from "../ButtonOutlined";
+import { FormData } from "../../api/users/types";
 import InputField from "../InputField";
 import hero from "../../assets/images/hero.png";
+import { sendData } from "../../api/users/users";
+import { useState } from "react";
 
 const Form = () => {
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    await sendData(formData);
+    setLoading(false);
+    setFormData({
+      fullName: "",
+      email: "",
+    });
+  };
+
   return (
     <Grid container mt={12}>
       <Grid item sm={6}>
@@ -15,13 +40,34 @@ const Form = () => {
           Open Auto Soothes the hassle of maintaining your vehicle and helps you
           deal with unexpected repairs worry-free.
         </Typography>
-        <InputField placeholder="Enter Your Name" />
-        <InputField placeholder="Enter Your Email" />
-        <Box sx={{ width: "57.5%" }}>
-          <ButtonOutlined fullWidth customBorderColor="#3b454f">
-            Submit
-          </ButtonOutlined>
-        </Box>
+        <form onSubmit={handleSubmit}>
+          <InputField
+            placeholder="Enter Your Name"
+            required
+            value={formData.fullName}
+            onChange={handleChange}
+            name="fullName"
+            disabled={loading}
+          />
+          <InputField
+            placeholder="Enter Your Email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            name="email"
+            disabled={loading}
+          />
+          <Box sx={{ width: "57.5%" }}>
+            <ButtonOutlined
+              fullWidth
+              customBorderColor="#3b454f"
+              type="submit"
+              disabled={loading}
+            >
+              Submit
+            </ButtonOutlined>
+          </Box>
+        </form>
       </Grid>
       <Grid item sm={6}>
         <img src={hero} alt="hero" style={{ width: "100%" }} />
