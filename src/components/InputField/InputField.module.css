@@ -1,0 +1,12 @@
+.inputField {
+  padding: 1rem 1.5rem;
+  border: 0.063rem solid #3b454f;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  width: 50%;
+  margin-bottom: 1.25rem;
+}
+
+.inputField:focus {
+  outline: none;
+}
