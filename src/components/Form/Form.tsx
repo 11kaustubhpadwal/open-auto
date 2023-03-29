@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import ButtonOutlined from "../ButtonOutlined";
 import { FormData } from "../../api/users/types";
@@ -30,9 +30,14 @@ const Form = () => {
     });
   };
 
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.down("md"));
+
+  const getMarginValue = isMd ? 9 : 0;
+
   return (
     <Grid container mt={12}>
-      <Grid item sm={6}>
+      <Grid item md={12} lg={6}>
         <Typography pt={9} fontSize={58} fontWeight={700} lineHeight={1.2}>
           Vehicle Maintainance From The Comfort of Your Home
         </Typography>
@@ -69,7 +74,7 @@ const Form = () => {
           </Box>
         </form>
       </Grid>
-      <Grid item sm={6}>
+      <Grid item md={12} lg={6} mt={getMarginValue}>
         <img src={hero} alt="hero" style={{ width: "100%" }} />
       </Grid>
     </Grid>

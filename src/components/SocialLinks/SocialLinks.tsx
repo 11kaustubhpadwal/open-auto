@@ -1,4 +1,5 @@
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
+
 import facebook from "../../assets/icons/facebook.png";
 import instagram from "../../assets/icons/instagram.png";
 import linkedin from "../../assets/icons/linkedin.png";
@@ -7,9 +8,20 @@ import twitter from "../../assets/icons/twitter.png";
 import youtube from "../../assets/icons/youtube.png";
 
 const SocialLinks = () => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.down("md"));
+
+  const getDisplayValue = isMd ? "none" : "block";
+
   return (
-    <Grid container alignItems="center" spacing="1rem">
-      <Grid item sm textAlign={"center"}>
+    <Grid
+      container
+      alignItems="center"
+      spacing="1rem"
+      justifyContent={isMd ? "center" : "start"}
+      mt={isMd ? 6 : 0}
+    >
+      <Grid item sm textAlign={"center"} display={getDisplayValue}>
         <img
           src={navigate}
           style={{ width: "3rem", marginLeft: "11rem" }}
